@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1e09c1b2ab52bf74a8164d6771eeebbf
-timeCreated: 1489047164
+timeCreated: 1489741525
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -83,6 +83,32 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites:
+    - serializedVersion: 2
+      name: "\u4E3B\u89D2\u8DF3\u548C\u7728\u773C_0"
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 785
+        width: 164
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u4E3B\u89D2\u8DF3\u548C\u7728\u773C_1"
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 787
+        width: 164
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     - serializedVersion: 2
       name: "\u4E3B\u89D2\u8DF3\u548C\u7728\u773C_2"
       rect:

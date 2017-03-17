@@ -7,11 +7,9 @@ public class playercontrol : MonoBehaviour {
 
     float maxSpeed = 5f;                             //player移动速度
     float jumpForce = 350f;                          //player跳跃时给的力
-   
-    int eatcolornum;                                 //player吃下的果子编号-1红-2黄-3蓝-4绿-5紫
-    int playercolornum;                              //player现在的颜色编号-1红-2黄-3蓝-4绿-5紫-6白
 
-    public bool isGrounded = false;                         //player是否在地上（用于判定不能进行二次跳跃）
+    public bool isGrounded;                         //player是否在地上（用于判定不能进行二次跳跃）
+    public bool isAlive;                            //player是否活着（用于判定游戏是否结束）
 
     [HideInInspector]
     public bool lookingRight = true;                 //player的移动方向（主角的朝向）
@@ -22,19 +20,26 @@ public class playercontrol : MonoBehaviour {
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        isGrounded = true;
+        isAlive = true;
+        anim.SetBool("Isalive", isAlive);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        //主角跳跃
-        if (Input.GetButtonDown("Jump")&&isGrounded)
-            rb2d.AddForce(new Vector2(0, jumpForce));
+    
+    void Update ()
+    {
+        Jump();
     }
 
     void FixedUpdate()
     {
+        MoveHorizontal();
+    }
+
+    void MoveHorizontal()
+    {
         //主角左右移动
         float hor = Input.GetAxis("Horizontal");
+        anim.SetFloat("Speed", Mathf.Abs(hor));
         rb2d.velocity = new Vector2(hor * maxSpeed, rb2d.velocity.y);
         if ((hor > 0 && !lookingRight) || (hor < 0 && lookingRight))               //判定主角的移动方向
             Flip();
@@ -48,36 +53,50 @@ public class playercontrol : MonoBehaviour {
         transform.localScale = myScale;
     }
 
+    void Jump()
+    {
+        //主角跳跃
+        if (Input.GetButtonDown("Jump")&&isGrounded)
+            rb2d.AddForce(new Vector2(0, jumpForce));
+    }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         //主角在地面时，isGrounded=true，主角能够跳跃
         if (other.collider.tag == "ground")
             isGrounded = true;
         else isGrounded = false;
+        anim.SetBool("Isgrounded", isGrounded);
     }
-
     void OnCollisionExit2D(Collision2D other)
     {
         //主角离开地面时，isGrounded=false，主角不能跳跃
         if (other.collider.tag == "ground")
             isGrounded = false;
         else isGrounded = true;
+        anim.SetBool("Isgrounded", isGrounded);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag=="red")
+        switch (other.tag)
         {
-
+            /*case ("red"):
+                break;
+            case ("blue"):
+                break;
+            case("green"):
+                break;
+            case("key"):
+                break;*/
+            case("monster"):
+                isAlive=false;
+                anim.SetBool("Isalive", isAlive);
+                break;
+            default:
+                break;
         }
-        if (other.tag == "key")
-        {
 
-        }
-        if (other.tag == "monster")
-        {
-
-        }
     }
 
 }
