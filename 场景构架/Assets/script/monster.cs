@@ -10,9 +10,9 @@ public class monster : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		length = 2f;
+		length = 1f;
 		monster_x = 1.5f;
-		monster_y = -2.9f;
+		monster_y = -2.5f;
 
 		//设置怪物初始位置
 		transform.position = new Vector3 (monster_x, monster_y, 0f);

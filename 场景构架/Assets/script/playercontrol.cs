@@ -1,40 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class playercontrol : MonoBehaviour {
 
     float maxSpeed = 5f;                             //player移动速度
-    float jumpForce = 350f;                          //player跳跃时给的力
+    //float jumpForce = 350f;                          //player跳跃时给的力
 
-    bool isGrounded;                                 //player是否在地上（用于判定不能进行二次跳跃）
-    public bool isAlive;                                    //player是否活着（用于判定游戏是否结束）
+    public bool isGrounded;                          //player是否在地上（用于判定不能进行二次跳跃）
+    public bool isAlive;                             //player是否活着（用于判定游戏是否结束）
     bool isTop;                                      //player是否跳到最高点（用于判定是否播放顶点动画）
-    float hor;                                      //player水平方向移动速度（用于判定切换待机和移动动画）
-    float upordown;                                 //player竖直方向的移动方向（用于判定切换跳上和跳下动画）
+    float hor;                                       //player水平方向移动速度（用于判定切换待机和移动动画）
+    float upordown;                                  //player竖直方向的移动方向（用于判定切换跳上和跳下动画）
+    public bool ischanging;                          //是否需要变色
 
-    float t_dead;
-   
+    public float SearchRadius;                       //碰撞盒的搜索范围
+    public GameObject Pl_win;                  //player过关时生成的不可输入的预制体
+    public GameObject door_shining;            //发光的门
+
     [HideInInspector]
     public bool lookingRight = true;                 //player的移动方向（主角的朝向）
     private Rigidbody2D rb2d;                        //player的刚体
     private Animator anim;                           //player的动画机
 
 	// Use this for initialization
+
 	void Start () {
+        //main_mask.GetComponent<Renderer>().material.color = UnityEngine.Color.clear;
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         isGrounded = true;
         isAlive = true;
+        SearchRadius = 0.5f;
         anim.SetBool("Isalive", isAlive);
-	}
+
+        ischanging = false;
+        //Debug.Log(main_mask.GetComponent<Renderer>().material.color.a);
+    }
     
     void Update ()
     {
-        if (isAlive)
-            Jump();
-        else
-            Destroy(this.gameObject, 0.6f);
+
     }
 
     void FixedUpdate()
@@ -42,14 +48,20 @@ public class playercontrol : MonoBehaviour {
         if (isAlive)
         {
             MoveHorizontal();
-
+            Jump();
+            SearchNearUnits();
+           
             upordown = rb2d.velocity.y;
-            anim.SetFloat("UporDown", upordown);                   //判定主角的上下状态
+            anim.SetFloat("UporDown", upordown);
             if (upordown < 3.0 && upordown > -1.5)
                 isTop = true;
             else isTop = false;
             anim.SetBool("Istop", isTop);
+            anim.SetBool("Ischanging", ischanging);
         }
+        else
+            Destroy(this.gameObject, 0.7f);
+
     }
 
     void MoveHorizontal()
@@ -73,8 +85,9 @@ public class playercontrol : MonoBehaviour {
     void Jump()
     {
         //主角跳跃
-        if (Input.GetButtonDown("Jump")&&isGrounded)
-            rb2d.AddForce(new Vector2(0, jumpForce));
+        if (Input.GetButtonDown("Jump") && isGrounded)
+            //rb2d.AddForce(new Vector2(0, jumpForce));
+            rb2d.velocity = new Vector2(rb2d.velocity.x,6.7f);
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -85,16 +98,7 @@ public class playercontrol : MonoBehaviour {
             isGrounded = true;
         }
         anim.SetBool("Isgrounded", isGrounded);
-
-        if (other.collider.tag == "Red")
-            Destroy(other.gameObject);
-    }
-    void OnCollisionExit2D(Collision2D other)
-    {
-        //主角离开地面时，isGrounded=false，主角不能跳跃
-        if (other.collider.tag == "ground")
-            isGrounded = false;
-        anim.SetBool("Isgrounded", isGrounded);
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -115,15 +119,15 @@ public class playercontrol : MonoBehaviour {
                     anim.SetBool("Isalive", isAlive);
                 }
                 break;
-            case "monster_black":
-                if (GetComponent<Color>().Player_Color != "Black")
+            case "monster_purple":
+                if (GetComponent<Color>().Player_Color != "Purple")
                 {
                     isAlive = false;
                     anim.SetBool("Isalive", isAlive);
                 }
                 break;
-            case "monster_green":
-                if (GetComponent<Color>().Player_Color != "Green")
+            case "monster_orange":
+                if (GetComponent<Color>().Player_Color != "Orange")
                 {
                     isAlive = false;
                     anim.SetBool("Isalive", isAlive);
@@ -136,9 +140,43 @@ public class playercontrol : MonoBehaviour {
                     anim.SetBool("Isalive", isAlive);
                 }
                 break;
-                
+            case "door":
+                if (isAlive&& GetComponent<Prop>().key)
+                {
+                    GameObject.Find("Canvas").GetComponent<gamecontrol>().gameclear = true;
+                    Pl_win.GetComponent<player_win>().pl_win_x = transform.position.x;
+                    Pl_win.GetComponent<player_win>().pl_win_y = transform.position.y;
+                    Instantiate(Pl_win, new Vector3(Pl_win.GetComponent<player_win>().pl_win_x, Pl_win.GetComponent<player_win>().pl_win_y, 0f), Quaternion.identity);
+                    Destroy(this.gameObject);
+                    Debug.Log("You Win");
+                    
+                    //过关特效
+                    Instantiate(door_shining, GameObject.Find("神秘雕像未发光").transform.position-new Vector3(0,0.1f,0), Quaternion.identity);
+                    Destroy(GameObject.Find("神秘雕像未发光"));
+                   
+                }
+                break;
+        }
+    }
+
+    void SearchNearUnits() //搜索某范围内的碰撞盒，用于判定player是否在地面上
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position-new Vector3(0,0.2f,0), SearchRadius,1 << LayerMask.NameToLayer("Ground"));
+        if (colliders.Length <= 0)
+        {
+            //Debug.Log("There is no collider.");
+            isGrounded = false;
+            anim.SetBool("Isgrounded", isGrounded);
+            return;
         }
 
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            //Debug.Log(colliders[i].gameObject.name);
+            if (colliders[i].tag == "ground")
+                isGrounded = true;
+        }
+        anim.SetBool("Isgrounded", isGrounded);
     }
 
 }
