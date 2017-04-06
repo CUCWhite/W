@@ -24,7 +24,6 @@ public class playercontrol : MonoBehaviour {
     private Animator anim;                           //player的动画机
 
 	// Use this for initialization
-
 	void Start () {
         //main_mask.GetComponent<Renderer>().material.color = UnityEngine.Color.clear;
         rb2d = GetComponent<Rigidbody2D>();
@@ -58,10 +57,15 @@ public class playercontrol : MonoBehaviour {
             else isTop = false;
             anim.SetBool("Istop", isTop);
             anim.SetBool("Ischanging", ischanging);
+            GameObject.Find("UI").GetComponent<gamecontrol>().gameover = false;
         }
         else
+        {
             Destroy(this.gameObject, 0.7f);
-
+            GameObject.Find("UI").GetComponent<gamecontrol>().gameover = true;
+            GameObject.Find("UI").GetComponent<gamecontrol>().t_reload = 0.4f + Time.time;
+        }
+            
     }
 
     void MoveHorizontal()
@@ -140,10 +144,10 @@ public class playercontrol : MonoBehaviour {
                     anim.SetBool("Isalive", isAlive);
                 }
                 break;
-            case "door":
-                if (isAlive&& GetComponent<Prop>().key)
+            case "door":                   //过关大门
+                if (isAlive&& GameObject.Find("UI").GetComponent<Prop>().key)
                 {
-                    GameObject.Find("Canvas").GetComponent<gamecontrol>().gameclear = true;
+                    GameObject.Find("UI").GetComponent<gamecontrol>().gameclear = true;
                     Pl_win.GetComponent<player_win>().pl_win_x = transform.position.x;
                     Pl_win.GetComponent<player_win>().pl_win_y = transform.position.y;
                     Instantiate(Pl_win, new Vector3(Pl_win.GetComponent<player_win>().pl_win_x, Pl_win.GetComponent<player_win>().pl_win_y, 0f), Quaternion.identity);
@@ -151,10 +155,14 @@ public class playercontrol : MonoBehaviour {
                     Debug.Log("You Win");
                     
                     //过关特效
-                    Instantiate(door_shining, GameObject.Find("神秘雕像未发光").transform.position-new Vector3(0,0.1f,0), Quaternion.identity);
+                    Instantiate(door_shining, GameObject.Find("神秘雕像未发光").transform.position-new Vector3(0.1f,0.1f,0), Quaternion.identity);
+                    GameObject.Find("UI").GetComponent<gamecontrol>().t_reload = 1.2f + Time.time;
                     Destroy(GameObject.Find("神秘雕像未发光"));
-                   
                 }
+                break;
+            case "ci":                    //碰触即死的障碍
+                isAlive = false;
+                anim.SetBool("Isalive", isAlive);
                 break;
         }
     }
@@ -164,18 +172,15 @@ public class playercontrol : MonoBehaviour {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position-new Vector3(0,0.2f,0), SearchRadius,1 << LayerMask.NameToLayer("Ground"));
         if (colliders.Length <= 0)
         {
-            //Debug.Log("There is no collider.");
             isGrounded = false;
             anim.SetBool("Isgrounded", isGrounded);
             return;
         }
 
         for (int i = 0; i < colliders.Length; i++)
-        {
-            //Debug.Log(colliders[i].gameObject.name);
             if (colliders[i].tag == "ground")
                 isGrounded = true;
-        }
+
         anim.SetBool("Isgrounded", isGrounded);
     }
 
