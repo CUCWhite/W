@@ -5,18 +5,20 @@ using DG.Tweening;
 public class playercontrol : MonoBehaviour {
 
     float maxSpeed = 5f;                             //player移动速度
-    //float jumpForce = 350f;                          //player跳跃时给的力
 
     public bool isGrounded;                          //player是否在地上（用于判定不能进行二次跳跃）
     public bool isAlive;                             //player是否活着（用于判定游戏是否结束）
+    public bool ischanging;                          //是否需要变色
     bool isTop;                                      //player是否跳到最高点（用于判定是否播放顶点动画）
+    
     float hor;                                       //player水平方向移动速度（用于判定切换待机和移动动画）
     float upordown;                                  //player竖直方向的移动方向（用于判定切换跳上和跳下动画）
-    public bool ischanging;                          //是否需要变色
-
     public float SearchRadius;                       //碰撞盒的搜索范围
+
     public GameObject Pl_win;                  //player过关时生成的不可输入的预制体
     public GameObject door_shining;            //发光的门
+    //GameObject cam1; //切换的摄像机
+    //GameObject cam2; //主摄像机
 
     [HideInInspector]
     public bool lookingRight = true;                 //player的移动方向（主角的朝向）
@@ -34,7 +36,11 @@ public class playercontrol : MonoBehaviour {
         anim.SetBool("Isalive", isAlive);
 
         ischanging = false;
-        //Debug.Log(main_mask.GetComponent<Renderer>().material.color.a);
+
+        //cam1 = GameObject.Find("camr");
+        //cam2 = GameObject.Find("Main Camera");
+        //cam1.SetActive(false);
+        //cam2.SetActive(true);
     }
     
     void Update ()
@@ -153,8 +159,6 @@ public class playercontrol : MonoBehaviour {
                     Instantiate(Pl_win, new Vector3(Pl_win.GetComponent<player_win>().pl_win_x, Pl_win.GetComponent<player_win>().pl_win_y, 0f), Quaternion.identity);
                     Destroy(this.gameObject);
                     Debug.Log("You Win");
-                    
-                    //过关特效
                     Instantiate(door_shining, GameObject.Find("神秘雕像未发光").transform.position-new Vector3(0.1f,0.1f,0), Quaternion.identity);
                     GameObject.Find("UI").GetComponent<gamecontrol>().t_reload = 1.2f + Time.time;
                     Destroy(GameObject.Find("神秘雕像未发光"));
@@ -163,6 +167,21 @@ public class playercontrol : MonoBehaviour {
             case "ci":                    //碰触即死的障碍
                 isAlive = false;
                 anim.SetBool("Isalive", isAlive);
+                break;
+            case "changecam":             //切换摄像机
+                if (lookingRight)
+                {
+                    Camera.main.transform.DOMoveX(3.7f, 0.5f);
+                    //cam2.SetActive(false);
+                    //cam1.SetActive(true);
+                }
+                else
+                {
+                    Camera.main.transform.DOMoveX(-2.5f, 0.5f);
+                    //cam1.SetActive(false);
+                    //cam2.SetActive(true);
+                }
+                Debug.Log("change");
                 break;
         }
     }

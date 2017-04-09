@@ -177,6 +177,5 @@ public class Color : MonoBehaviour {
     //每过1秒，果子存在时间减1
 	public void Time_Start(object source, System.Timers.ElapsedEventArgs e){
 		Exist_Time -= 1;
-        Debug.Log(Exist_Time);
     }
 }
