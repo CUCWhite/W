@@ -16,7 +16,8 @@ public class playercontrol : MonoBehaviour {
 
     float hor;                                       //player水平方向移动速度（用于判定切换待机和移动动画）
     float upordown;                                  //player竖直方向的移动方向（用于判定切换跳上和跳下动画）
-    public float SearchRadius;                       //碰撞盒的搜索范围
+    public float SearchRadius;                       //主角下方碰撞盒的搜索范围
+    public float LRRadius;                           //主角左右碰撞盒的搜索范围
 
     public GameObject Pl_win;                  //player过关时生成的不可输入的预制体
     public GameObject door_shining;            //发光的门
@@ -39,7 +40,7 @@ public class playercontrol : MonoBehaviour {
         anim = GetComponent<Animator>();
         isGrounded = true;
         isAlive = true;
-        SearchRadius = 0.3f;
+        SearchRadius = 0.4f;
         anim.SetBool("Isalive", isAlive);
         ischanging = false;
         ccamud = true;
@@ -182,6 +183,10 @@ public class playercontrol : MonoBehaviour {
                     Instantiate(door_shining, GameObject.Find("神秘雕像未发光").transform.position-new Vector3(0.1f,0.1f,0), Quaternion.identity);
                     GameObject.Find("UI").GetComponent<gamecontrol>().t_reload = 1.2f + Time.time;
                     Destroy(GameObject.Find("神秘雕像未发光"));
+                    if(SceneName=="level1")
+                    {
+                        TeachOne.iskeydown[4] = true;
+                    }
                 }
                 break;
             case "ci":                    //碰触即死的障碍

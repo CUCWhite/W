@@ -91,6 +91,10 @@ public class TeachOne : MonoBehaviour {
             sbt[1].DOColor(UnityEngine.Color.white, 1.0f);
             Invoke("clear1", 1.0f);
         }
+        if(iskeydown[4])
+        {
+            GameObject.Find("Teach").SetActive(false);
+        }
     }
     void clear0()
     {

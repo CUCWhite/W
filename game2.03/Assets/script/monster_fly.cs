@@ -5,13 +5,13 @@ using UnityEngine;
 public class monster_fly : MonoBehaviour {
     public GameObject player;
     private float border_x;
-    private float border_y;
+    public float border_y;
 
     // Use this for initialization
     void Start () {
         player = GameObject.Find("White(Clone)");
         border_x = -2.5f;
-        border_y = 3.6f;
+        border_y = 3.8f;
 	}
 	
 	// Update is called once per frame
@@ -19,17 +19,16 @@ public class monster_fly : MonoBehaviour {
         //主角进入左侧平台后
         if (player.GetComponent<playercontrol>().isAlive && player.transform.position.x <= border_x)
         {
-            Debug.Log("1");
             if (player.transform.position.y >= 2.6f)
             {
                 //如果主角被怪物看到
                 if (GetComponent<monster>().lookingRight)
                 {
-                    if (transform.position.x - player.transform.position.x <= 0)
+                    if (transform.position.x - player.transform.position.x <= 0.5f)
                     {
                         //并且主角没有变色
                         if (player.GetComponent<Color>().Player_Color != "Red")
-                            PlayerDied();
+                        PlayerDied();
                         //或者主角跳出草丛
                         else if (player.transform.position.y >= border_y)
                             PlayerDied();
@@ -37,10 +36,10 @@ public class monster_fly : MonoBehaviour {
                 }
                 else
                 {
-                    if (transform.position.x - player.transform.position.x >= 0)
+                    if (transform.position.x - player.transform.position.x >= 0.5f)
                     {
-                        if (player.GetComponent<Color>().Player_Color != "Red")
-                            PlayerDied();
+                        if (player.GetComponent<Color>().Player_Color != "Red") 
+                        PlayerDied();
                         else if (player.transform.position.y >= border_y)
                             PlayerDied();
                     }

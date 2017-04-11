@@ -78,18 +78,20 @@ public class Color : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                if(SceneName!="level1"||(SceneName=="level"&&TeachOne.cankeydown[3]))
-                Debug.Log("ok");
-                Fruit_Type = 0;
-                EatFruit(Fruit_Type, new UnityEngine.Color((float)123 / 255, (float)207 / 255, (float)223 / 255));
-                Player_Color = "Blue";
+                if (SceneName != "level1" || (SceneName == "level" && TeachOne.cankeydown[3]))
+                {
+                    Debug.Log("ok");
+                    Fruit_Type = 0;
+                    EatFruit(Fruit_Type, new UnityEngine.Color((float)123 / 255, (float)207 / 255, (float)223 / 255));
+                    Player_Color = "Blue";
+                }
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Fruit_Type = 1;
                 //吃掉果子后，果子数量减1，记录该种果子时限
                 //改变果子颜色，color(r，g，b，a)定义颜色
-                EatFruit(Fruit_Type, UnityEngine.Color.red);
+                EatFruit(Fruit_Type, new UnityEngine.Color((float)199 / 255, (float)127 / 255, (float)105 / 255));
                 //记录主角颜色
                 Player_Color = "Red";
             }
@@ -102,13 +104,13 @@ public class Color : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 Fruit_Type = 3;
-                EatFruit(Fruit_Type, UnityEngine.Color.green);
+                EatFruit(Fruit_Type, new UnityEngine.Color((float)145 / 255, (float)207 / 255, (float)139 / 255));
                 Player_Color = "Green";
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 Fruit_Type = 4;
-                EatFruit(Fruit_Type, UnityEngine.Color.yellow);
+                EatFruit(Fruit_Type, new UnityEngine.Color((float)235 / 255, (float)198 / 255, (float)125 / 255));
                 Player_Color = "Yellow";
             }
         }
@@ -124,7 +126,7 @@ public class Color : MonoBehaviour {
 			GameObject.Find("UI").GetComponent<Prop>().fruits[1] += 1;
             fui[1].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[1].GetComponent<Image>().fillAmount = 1;
-            fui[1].GetComponent<Image>().DOColor(UnityEngine.Color.red, 1.0f);
+            fui[1].GetComponent<Image>().DOColor(new UnityEngine.Color((float)199 / 255, (float)127 / 255, (float)105 / 255), 1.0f);
             PlayAudioEffect("sounds/GetProp");
             Destroy(collider2D.gameObject);
 		}
@@ -153,7 +155,7 @@ public class Color : MonoBehaviour {
 			GameObject.Find("UI").GetComponent<Prop>().fruits[3] += 1;
             fui[3].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[3].GetComponent<Image>().fillAmount = 1;
-            fui[3].GetComponent<Image>().DOColor(UnityEngine.Color.green, 1.0f);
+            fui[3].GetComponent<Image>().DOColor(new UnityEngine.Color((float)145 / 255, (float)207 / 255, (float)139 / 255), 1.0f);
             PlayAudioEffect("sounds/GetProp");
             Destroy(collider2D.gameObject);
 		}
@@ -161,7 +163,7 @@ public class Color : MonoBehaviour {
 			GameObject.Find("UI").GetComponent<Prop>().fruits[4] += 1;
             fui[4].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[4].GetComponent<Image>().fillAmount = 1;
-            fui[4].GetComponent<Image>().DOColor(UnityEngine.Color.yellow, 1.0f);
+            fui[4].GetComponent<Image>().DOColor(new UnityEngine.Color((float)235 / 255, (float)198 / 255, (float)125 / 255), 1.0f);
             PlayAudioEffect("sounds/GetProp");
             Destroy(collider2D.gameObject);
 		}
