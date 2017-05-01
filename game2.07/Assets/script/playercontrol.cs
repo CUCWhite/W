@@ -56,7 +56,7 @@ public class playercontrol : MonoBehaviour {
         ccamud = true;
         cameralr = GameObject.Find("camchange-lr");
         cameraud = GameObject.Find("camchange-ud");
-        
+
         SceneName = Application.loadedLevelName;
     }
     
@@ -100,7 +100,7 @@ public class playercontrol : MonoBehaviour {
             GameObject.Find("UI").GetComponent<gamecontrol>().gameover = true;
             GameObject.Find("UI").GetComponent<gamecontrol>().t_reload = 0.4f + Time.time;
         }
-            
+
     }
 
     void MoveHorizontal()
