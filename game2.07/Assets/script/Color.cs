@@ -13,7 +13,7 @@ public class Color : MonoBehaviour {
 	private int Fruit_Type;
 	//计时器
 	private System.Timers.Timer t;
-
+    
     float t_changecolor;
     private bool Time_Need;
     public GameObject[] fui;
@@ -124,11 +124,15 @@ public class Color : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider2D){
 		if (collider2D.gameObject.tag == "Red") {
 			GameObject.Find("UI").GetComponent<Prop>().fruits[1] += 1;
+            collider2D.transform.DOMoveX(6.4f, 1.0f);
+            collider2D.transform.DOMoveY(3.0f, 1.0f);
+            collider2D.transform.DOScale(0.5f, 1.0f);
+            collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
             fui[1].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[1].GetComponent<Image>().fillAmount = 1;
-            fui[1].GetComponent<Image>().DOColor(new UnityEngine.Color((float)199 / 255, (float)127 / 255, (float)105 / 255), 1.0f);
+            fui[1].GetComponent<Image>().DOColor(new UnityEngine.Color((float)199 / 255, (float)127 / 255, (float)105 / 255), 2.0f);
             PlayAudioEffect("sounds/GetProp");
-            Destroy(collider2D.gameObject);
+            Destroy(collider2D.gameObject,5.0f);
 		}
 		if (collider2D.gameObject.tag == "Blue") {
             if (SceneName == "level1")
@@ -136,36 +140,53 @@ public class Color : MonoBehaviour {
                 TeachOne.cankeydown[2] = true;
             }
             GameObject.Find("UI").GetComponent<Prop>().fruits[0] += 1;
+            collider2D.transform.DOMoveX(8.4f, 1.0f);
+            collider2D.transform.DOMoveY(4.4f, 1.0f);
+            collider2D.transform.DOScale(0.5f, 1.0f);
+            collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
             fui[0].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[0].GetComponent<Image>().fillAmount = 1;
-            fui[0].GetComponent<Image>().DOColor(new UnityEngine.Color((float)123 / 255, (float)207 / 255, (float)223 / 255), 1.0f);
+            fui[0].GetComponent<Image>().DOColor(new UnityEngine.Color((float)123 / 255, (float)207 / 255, (float)223 / 255), 2.0f);
             PlayAudioEffect("sounds/GetProp");
-            Destroy(collider2D.gameObject);
+            
+            Destroy(collider2D.gameObject, 5.0f);
 
 		}
 		if (collider2D.gameObject.tag == "Purple") {
-			GameObject.Find("UI").GetComponent<Prop>().fruits[2] += 1;
+            collider2D.transform.DOMoveX(6.5f, 1.0f);
+            collider2D.transform.DOMoveY(2.5f, 1.0f);
+            collider2D.transform.DOScale(0.5f, 1.0f);
+            collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
+            GameObject.Find("UI").GetComponent<Prop>().fruits[2] += 1;
             fui[2].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[2].GetComponent<Image>().fillAmount = 1;
             fui[2].GetComponent<Image>().DOColor(UnityEngine.Color.magenta, 1.0f);
             PlayAudioEffect("sounds/GetProp");
-            Destroy(collider2D.gameObject);
+            Destroy(collider2D.gameObject,5.0f);
 		}
 		if (collider2D.gameObject.tag == "Green") {
-			GameObject.Find("UI").GetComponent<Prop>().fruits[3] += 1;
+            collider2D.transform.DOMoveX(6.7f, 1.0f);
+            collider2D.transform.DOMoveY(2.0f, 1.0f);
+            collider2D.transform.DOScale(0.5f, 1.0f);
+            collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
+            GameObject.Find("UI").GetComponent<Prop>().fruits[3] += 1;
             fui[3].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[3].GetComponent<Image>().fillAmount = 1;
             fui[3].GetComponent<Image>().DOColor(new UnityEngine.Color((float)145 / 255, (float)207 / 255, (float)139 / 255), 1.0f);
             PlayAudioEffect("sounds/GetProp");
-            Destroy(collider2D.gameObject);
+            Destroy(collider2D.gameObject, 5.0f);
 		}
 		if (collider2D.gameObject.tag == "Yellow") {
-			GameObject.Find("UI").GetComponent<Prop>().fruits[4] += 1;
+            collider2D.transform.DOMoveX(6.5f, 1.0f);
+            collider2D.transform.DOMoveY(1.6f, 1.0f);
+            collider2D.transform.DOScale(0.5f, 1.0f);
+            collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
+            GameObject.Find("UI").GetComponent<Prop>().fruits[4] += 1;
             fui[4].GetComponent<Image>().color = UnityEngine.Color.white;
             fui[4].GetComponent<Image>().fillAmount = 1;
             fui[4].GetComponent<Image>().DOColor(new UnityEngine.Color((float)235 / 255, (float)198 / 255, (float)125 / 255), 1.0f);
             PlayAudioEffect("sounds/GetProp");
-            Destroy(collider2D.gameObject);
+            Destroy(collider2D.gameObject, 5.0f);
 		}
 		if (collider2D.gameObject.tag == "Key") {
             if (SceneName == "level1")
