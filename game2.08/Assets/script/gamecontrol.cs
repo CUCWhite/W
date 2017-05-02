@@ -16,6 +16,7 @@ public class gamecontrol : MonoBehaviour {
     public bool gameclear;                            //是否过关
     public bool gameover;                             //游戏是否结束（玩家是否死亡）
     private static int gamelevel;                   //游戏进行到哪一关
+    public int level;
     private int maxlevel;                           //游戏最大关卡
     string lname;                                     //用于记录该关的名字
 
@@ -41,6 +42,7 @@ public class gamecontrol : MonoBehaviour {
             if (sceneName == s)
             {
                 gamelevel = i;
+                level = i;
                 break;
             }
         }
@@ -54,6 +56,9 @@ public class gamecontrol : MonoBehaviour {
                 break;
             case 2:
                 Instantiate(Player, new Vector3(-6.2f, -0.8f, 0f), Quaternion.identity);
+                break;
+            case 3:
+                Instantiate(Player, new Vector3(-6.2f, 4f, 0f), Quaternion.identity);
                 break;
         }
     }

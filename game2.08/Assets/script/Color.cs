@@ -124,8 +124,8 @@ public class Color : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider2D){
 		if (collider2D.gameObject.tag == "Red") {
 			GameObject.Find("UI").GetComponent<Prop>().fruits[1] += 1;
-            collider2D.transform.DOMoveX(6.4f, 1.0f);
-            collider2D.transform.DOMoveY(3.0f, 1.0f);
+            collider2D.transform.DOLocalMoveX(6.4f, 1.0f);
+            collider2D.transform.DOLocalMoveY(3.0f, 1.0f);
             collider2D.transform.DOScale(0.5f, 1.0f);
             collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
             fui[1].GetComponent<Image>().color = UnityEngine.Color.white;

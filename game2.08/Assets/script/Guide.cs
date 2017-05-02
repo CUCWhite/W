@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 public class Guide : MonoBehaviour {
+
     public GameObject Player;
     private GameObject Player_clone;
     private Animator anim;                           //player的动画机
     public Text click;
     public Image mainmask;
+
     // Use this for initialization
     void Start () {
         Instantiate(Player, new Vector3(0f, -1.16f, 0f), Quaternion.identity);

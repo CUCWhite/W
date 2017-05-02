@@ -5,8 +5,9 @@ using UnityEngine;
 public class transfer : MonoBehaviour
 {
     public GameObject another_transfer;
+    public GameObject transfer_pos;
     public bool on_off;
-    public bool empty;
+    //public bool empty;
     float Extents;
 
     // Use this for initialization
@@ -17,7 +18,7 @@ public class transfer : MonoBehaviour
 
     void Update()
     {
-        SearchAllUnits();
+        //SearchAllUnits();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -26,7 +27,7 @@ public class transfer : MonoBehaviour
         {
             if (other.tag != "ground" && other.tag != "Player")
             {
-                other.transform.position = another_transfer.transform.position;
+                other.transform.position = transfer_pos.transform.position;
                 another_transfer.GetComponent<transfer>().on_off = false;
             }
         }
@@ -38,10 +39,9 @@ public class transfer : MonoBehaviour
         {
             if (other.tag == "Player")
             {
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.LeftControl))
                 {
-                    other.transform.position = another_transfer.transform.position;
-                    another_transfer.GetComponent<transfer>().on_off = false;
+                    other.transform.position = transfer_pos.transform.position;
                 }
             }
         }
@@ -53,13 +53,13 @@ public class transfer : MonoBehaviour
         {
             if (other.tag != "ground")
             {
-                if (empty)
+                //if (empty)
                     on_off = true;
             }
         }
     }
 
-    void SearchAllUnits() //搜索某范围内的碰撞盒，用于判定player左右是否靠着一个物体
+    /*void SearchAllUnits() //搜索某范围内的碰撞盒，用于判定player左右是否靠着一个物体
     {
         Collider2D[] collidl = Physics2D.OverlapCircleAll(transform.position, Extents, LayerMask.NameToLayer("Activity"));
 
@@ -68,5 +68,5 @@ public class transfer : MonoBehaviour
             empty = true;
         }
         else empty = false;
-    }
+    }*/
 }

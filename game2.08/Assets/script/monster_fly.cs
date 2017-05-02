@@ -31,7 +31,6 @@ public class monster_fly : MonoBehaviour {
         t_monsterpause = Time.time;
         t_monsterfirestop = Time.time;
 
-        player = GameObject.Find("White(Clone)");
         border_x = -2.5f;
         border_y = 3.8f;
         platform_y = 2.6f;
