@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f329039e4439179438dfa01ceac8226f
+timeCreated: 1494078830
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: MuZi xueshengshidai
+  fontNames:
+  - MuZi xueshengshidai
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

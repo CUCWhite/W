@@ -140,8 +140,8 @@ public class Color : MonoBehaviour {
                 TeachOne.cankeydown[2] = true;
             }
             GameObject.Find("UI").GetComponent<Prop>().fruits[0] += 1;
-            collider2D.transform.DOMoveX(8.4f, 1.0f);
-            collider2D.transform.DOMoveY(4.4f, 1.0f);
+            collider2D.transform.DOLocalMoveX(8.4f, 1.0f);
+            collider2D.transform.DOLocalMoveY(4.4f, 1.0f);
             collider2D.transform.DOScale(0.5f, 1.0f);
             collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
             fui[0].GetComponent<Image>().color = UnityEngine.Color.white;
@@ -153,8 +153,8 @@ public class Color : MonoBehaviour {
 
 		}
 		if (collider2D.gameObject.tag == "Purple") {
-            collider2D.transform.DOMoveX(6.5f, 1.0f);
-            collider2D.transform.DOMoveY(2.5f, 1.0f);
+            collider2D.transform.DOLocalMoveX(6.5f, 1.0f);
+            collider2D.transform.DOLocalMoveY(2.5f, 1.0f);
             collider2D.transform.DOScale(0.5f, 1.0f);
             collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
             GameObject.Find("UI").GetComponent<Prop>().fruits[2] += 1;
@@ -165,8 +165,10 @@ public class Color : MonoBehaviour {
             Destroy(collider2D.gameObject,5.0f);
 		}
 		if (collider2D.gameObject.tag == "Green") {
-            collider2D.transform.DOMoveX(6.7f, 1.0f);
-            collider2D.transform.DOMoveY(2.0f, 1.0f);
+            //collider2D.transform.DOLocalMoveX(6.7f, 1.0f);
+            collider2D.transform.DOLocalMoveX(8.4f, 1.0f);
+            collider2D.transform.DOLocalMoveY(5.4f, 1.0f);
+            //collider2D.transform.DOLocalMoveY(2.0f, 1.0f);
             collider2D.transform.DOScale(0.5f, 1.0f);
             collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
             GameObject.Find("UI").GetComponent<Prop>().fruits[3] += 1;
@@ -177,8 +179,10 @@ public class Color : MonoBehaviour {
             Destroy(collider2D.gameObject, 5.0f);
 		}
 		if (collider2D.gameObject.tag == "Yellow") {
-            collider2D.transform.DOMoveX(6.5f, 1.0f);
-            collider2D.transform.DOMoveY(1.6f, 1.0f);
+            //collider2D.transform.DOLocalMoveX(6.5f, 1.0f);
+            //collider2D.transform.DOLocalMoveY(1.6f, 1.0f);
+            collider2D.transform.DOLocalMoveX(8.4f, 1.0f);
+            collider2D.transform.DOLocalMoveY(4.4f, 1.0f);
             collider2D.transform.DOScale(0.5f, 1.0f);
             collider2D.GetComponent<Renderer>().material.DOColor(UnityEngine.Color.clear, 5.0f);
             GameObject.Find("UI").GetComponent<Prop>().fruits[4] += 1;
