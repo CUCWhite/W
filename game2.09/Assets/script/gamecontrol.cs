@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using DG.Tweening;
 using System;
 using Mono.Data.Sqlite;
 
@@ -19,7 +19,7 @@ public class gamecontrol : MonoBehaviour {
     public int level;
     private int maxlevel;                           //游戏最大关卡
     string lname;                                     //用于记录该关的名字
-
+    public Image pauseUI;
     bool ifchangecamera;                              //是否能够切换摄像机
     public float t_reload;                            //用于延后载入新场景的时间，使死亡动画和过关动画能够播完
     string sceneName;
@@ -31,6 +31,8 @@ public class gamecontrol : MonoBehaviour {
     }
 	void Start ()
     {
+        //pauseUI.enabled = false;
+        pauseUI.gameObject.SetActive(false);
         gaming = false;
         gameover = false;
         maxlevel = 2;
@@ -76,11 +78,13 @@ public class gamecontrol : MonoBehaviour {
     {
         if (!gaming)
         {
+            pauseUI.gameObject.SetActive(true);
             Time.timeScale = 0;
             gaming = !gaming;
         }
         else if (gaming)
         {
+            pauseUI.gameObject.SetActive(false);
             Time.timeScale = 1;
             gaming = !gaming;
         }
@@ -170,7 +174,12 @@ public class gamecontrol : MonoBehaviour {
     {
         SceneManager.LoadScene("guide");
     }
-
+    public void BacktoGame()
+    {
+        pauseUI.gameObject.SetActive(false);
+        Time.timeScale = 1;
+        gaming = !gaming;
+    }
     public void ExitGame()
     {
         Application.Quit();

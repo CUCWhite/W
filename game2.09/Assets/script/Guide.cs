@@ -20,10 +20,10 @@ public class Guide : MonoBehaviour
     {
         init_sy = subtitles.transform.position.y;
         hang_count = 0;
-        Invoke("Timer", 2.0f);
+        Invoke("Timer", 3.0f);
         Instantiate(Player, new Vector3(0f, -1.16f, 0f), Quaternion.identity);
         Player_clone = GameObject.Find("White(Clone)");
-
+        mainmask.DOColor(UnityEngine.Color.clear, 5.0f);
         anim = Player_clone.GetComponent<Animator>();
         click.color = UnityEngine.Color.clear;
     }
@@ -32,7 +32,7 @@ public class Guide : MonoBehaviour
     void Update()
     {
 
-        mainmask.DOColor(UnityEngine.Color.clear, 5.0f);
+
         click.DOBlendableColor(UnityEngine.Color.white, 3.0f);
         anim.SetFloat("Speed", 2.0f);
         if (Input.GetMouseButton(0))
